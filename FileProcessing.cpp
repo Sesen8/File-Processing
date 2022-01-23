@@ -12,6 +12,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <sstream>
+
 
 
 using namespace std;
@@ -23,13 +25,19 @@ using std::ifstream;
 using std::fstream;
 using std::vector;
 
+
+
 #include "Formatting.h"
 #include "FileProcessing.h"
 
 vector <int> agesList;
 
-void AgeStringToInt(const string& ageCSV) {
-    agesList.push_back(stoi(ageCSV));
+void AgeStringToInt(string& ageCSV) {
+    stringstream agesAsNums(ageCSV);
+    int x;
+    agesAsNums >> x;
+    agesList.push_back(x);
+
 }
 
 void RestartAges(){
@@ -43,15 +51,21 @@ void AgesCalculations(){
     int min = agesList[0];
     double averageAge = 0;
 
-    for (int i = 0; i <agesList.size(); i++ ){
+    for (int i = 0; i <agesList.size(); ++i ) {
         if (agesList[i] > max) {
             max = agesList[i];
         }
-        else if (agesList[i] < min) {
+    }
+
+    for (int i = 0; i <agesList.size(); ++i ) {
+        if (agesList[i] < min) {
             min = agesList[i];
         }
+    }
 
-        averageAge = averageAge+agesList[i];
+    for (int i = 0; i <agesList.size(); ++i ) {
+        averageAge += agesList[i];
+    }
 
         averageAge = averageAge/static_cast<double>(agesList.size());
 
@@ -59,15 +73,8 @@ void AgesCalculations(){
         cout << "Maximum Age: " << max << endl;
         cout << setprecision(3) << averageAge << endl;
 
-        RestartAges();
-
-    }
-
 
 }
-
-
-
 
 // - Reads the JSON File and calls FormatAsCSV() for each of the lines found in the file.
 // - From there it outputs each of those lines to a CSV file
@@ -89,7 +96,6 @@ void FormattingTheFiles(ifstream& jsonIn, ofstream& csvOut, string& json) {
 
     } while (true);
 
-
 }
 
 // Operates in a loop so multiple files can be processed.
@@ -104,12 +110,9 @@ void FormattingTheFiles(ifstream& jsonIn, ofstream& csvOut, string& json) {
 //      nothing
 void ProcessFiles() {
 
-    //RestartAges();
-
+    RestartAges();
     string inFilename;
     string outFilename;
-    string cvsInformation;
-    string info;
     string json;
 
     do {
@@ -126,14 +129,11 @@ void ProcessFiles() {
             cout << "ERROR: Incorrect file format, please provide a JSON file" << endl;
             continue;
         }
-
         jsonIn.open("../" + inFilename);
         if (!jsonIn.is_open()){
             cout  << "ERROR: " << inFilename << " not found" << endl;
             continue;
         }
-
-
 
         cout << "Output File Name: ";
         cin >> outFilename;
@@ -142,25 +142,27 @@ void ProcessFiles() {
         string csvFormat = ".csv";
         if (outFilename.find(csvFormat) == string::npos){
             cout << "ERROR: Incorrect file format, please provide a CSV file" << endl;
+            jsonIn.close();
             continue;
         }
 
         csvOut.open("../" + outFilename);
         if (!csvOut.is_open()){
             cout  << "ERROR: " << inFilename << " not found" << endl;
+            jsonIn.close();
             continue;
         }
 
         FormattingTheFiles(jsonIn,csvOut,json);
 
-        //AgesCalculations();
+
+
+        AgesCalculations();
         jsonIn.close();
         csvOut.close();
 
 
-
-
-    } while (true);
+    } while (inFilename != " ");
 
 
 

@@ -65,7 +65,7 @@ string GetAge(const string& json) {
         ageCSV.append(json.substr(json.find("Age\":") + 5, 2));
     }
 
-   //AgeStringToInt(ageCSV);
+   AgeStringToInt(ageCSV);
     return ageCSV;
 
 }
