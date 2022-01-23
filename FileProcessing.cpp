@@ -94,6 +94,8 @@ void FormattingTheFiles(ifstream& jsonIn, ofstream& csvOut, string& json) {
             break;
         }
 
+        csvOut << FormatAsCSV(json) << endl;
+
     } while (true);
 
 }
