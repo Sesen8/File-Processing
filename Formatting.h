@@ -14,6 +14,7 @@ using std::string;
 
 string CSVHeader();
 string FormatAsCSV(string json);
+string StringBetween(string json, string startWord, string endWord);
 string GetAge(string json);
 
 #endif //FORMATTING_H
