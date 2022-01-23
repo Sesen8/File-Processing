@@ -13,8 +13,11 @@
 using std::string;
 
 string CSVHeader();
-string FormatAsCSV(string json);
-string StringBetween(string json, string startWord, string endWord);
-string GetAge(string json);
+string FormatAsCSV(const string& json);
+string StringBetween(const string& json, const string& startWord, const string& endWord);
+string GetAge(const string& json);
+void AgeStringToInt(const string& ageCSV);
+void RestartAges();
+void AgesCalculations();
 
 #endif //FORMATTING_H

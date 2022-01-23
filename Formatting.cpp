@@ -39,15 +39,15 @@ string CSVHeader() {
 //      json - JSON formatted line
 // Returns:
 //      CSV formatted line
-string FormatAsCSV(string json) {
-    string nowCVS;
+string FormatAsCSV(const string& json) {
+    string nowCSV;
 
     string comma= ",";
 
-    nowCVS = StringBetween(json, "\"FirstName\":\"", "\"") + comma + StringBetween(json, "\"LastName\":\"", "\"") + comma + GetAge(json) + comma + StringBetween(json, "\"Height\":", "\"") + comma +  StringBetween(json, "\"Nationality\":\"", "\"");
+    nowCSV = StringBetween(json, "\"FirstName\":\"", "\"") + comma + StringBetween(json, "\"LastName\":\"", "\"") + comma + GetAge(json) + comma + StringBetween(json, "\"Height\":", "\"") + comma +  StringBetween(json, "\"Nationality\":\"", "\"");
 
 
-    return nowCVS;
+    return nowCSV;
 }
 
 // Return the age value stored in a JSON
@@ -58,22 +58,19 @@ string FormatAsCSV(string json) {
 //      json - JSON formatted line
 // Returns:
 //      age as string, or empty if age doesn't appear
-string GetAge(string json) {
-    string ageCVS;
+string GetAge(const string& json) {
+    string ageCSV;
 
     if ((json.find("\"Age\":") != -1)) {
-        //ageCVS = json.substr(json.find("Age\":")+5, ((json.length()-1)-(json.find(", \"H"))-1));
-        //ageCVS.append(json.substr(json.find("Age\":")+5, (json.length()-4-json.find("Age\":")+5)));
-        ageCVS.append(json.substr(json.find("Age\":") + 5, 2));
+        ageCSV.append(json.substr(json.find("Age\":") + 5, 2));
     }
 
-    return ageCVS;
-
-
+   //AgeStringToInt(ageCSV);
+    return ageCSV;
 
 }
 
-string StringBetween(string json, string startWord, string endWord) {
+string StringBetween(const string& json, const string& startWord, const string& endWord) {
     size_t startPosition = json.find(startWord);
 
     if (startPosition != -1){

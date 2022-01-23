@@ -11,6 +11,7 @@
 #include <cassert>
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 
 using namespace std;
@@ -25,15 +26,47 @@ using std::vector;
 #include "Formatting.h"
 #include "FileProcessing.h"
 
-/*vector <int> Ages;
-void AgeStringToInt() {
-    Ages.push_back(stoi(age));
+vector <int> agesList;
+
+void AgeStringToInt(const string& ageCSV) {
+    agesList.push_back(stoi(ageCSV));
 }
 
 void RestartAges(){
+    agesList.clear();
+}
+
+
+
+void AgesCalculations(){
+    int max = agesList[0];
+    int min = agesList[0];
+    double averageAge = 0;
+
+    for (int i = 0; i <agesList.size(); i++ ){
+        if (agesList[i] > max) {
+            max = agesList[i];
+        }
+        else if (agesList[i] < min) {
+            min = agesList[i];
+        }
+
+        averageAge = averageAge+agesList[i];
+
+        averageAge = averageAge/static_cast<double>(agesList.size());
+
+        cout << "Minimum Age: " << min << endl;
+        cout << "Maximum Age: " << max << endl;
+        cout << setprecision(3) << averageAge << endl;
+
+        RestartAges();
+
+    }
+
 
 }
- */
+
+
 
 
 // - Reads the JSON File and calls FormatAsCSV() for each of the lines found in the file.
@@ -46,7 +79,7 @@ void RestartAges(){
 // Returns:
 //      nothing
 void FormattingTheFiles(ifstream& jsonIn, ofstream& csvOut, string& json) {
-    //csvOut << CSVHeader() << endl;
+    csvOut << CSVHeader() << endl;
 
     do {
         getline(jsonIn,json);
@@ -70,6 +103,8 @@ void FormattingTheFiles(ifstream& jsonIn, ofstream& csvOut, string& json) {
 // Returns:
 //      nothing
 void ProcessFiles() {
+
+    //RestartAges();
 
     string inFilename;
     string outFilename;
@@ -117,6 +152,10 @@ void ProcessFiles() {
         }
 
         FormattingTheFiles(jsonIn,csvOut,json);
+
+        //AgesCalculations();
+        jsonIn.close();
+        csvOut.close();
 
 
 
