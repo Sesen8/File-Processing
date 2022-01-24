@@ -16,8 +16,6 @@ string CSVHeader();
 string FormatAsCSV(const string& json);
 string StringBetween(const string& json, const string& startWord, const string& endWord);
 string GetAge(const string& json);
-void AgeStringToInt(string& ageCSV);
-void RestartAges();
-void AgesCalculations();
+
 
 #endif //FORMATTING_H

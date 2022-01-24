@@ -9,6 +9,7 @@
 #include <iostream>
 
 #include "Formatting.h"
+#include "CalculationsForAges.h"
 
 using std::cout;
 using std::endl;
@@ -61,12 +62,29 @@ string FormatAsCSV(const string& json) {
 string GetAge(const string& json) {
     string ageCSV;
 
+    /*
     if ((json.find("\"Age\":") != -1)) {
         ageCSV.append(json.substr(json.find("Age\":") + 5, 2));
     }
+     */
 
-   AgeStringToInt(ageCSV);
-    return ageCSV;
+    size_t agePos;
+    agePos = (json.find("Age\":"));
+    if (agePos != string::npos){
+        agePos = agePos+5;
+        if (isspace(json.at(agePos))){
+            agePos++;
+        }
+        while (isdigit(json.at(agePos))){
+            ageCSV += json.at(agePos);
+            agePos++;
+        }
+        AgeStringToInt(ageCSV);
+        return ageCSV;
+    }
+    else{
+        return "";
+    }
 
 }
 
