@@ -1,6 +1,11 @@
+// Title: Lab 1 - CalculationsForAges.cpp
 //
-// Created by Sesen Yonas on 1/23/22.
+// Purpose: This program is used to compute the maximum, minimum and average ages found in the json file.
 //
+// Class: CSC 2430 Winter 2022
+// Author: Sesen Yonas
+// The following code is from my authorship with the exception of the
+// code provided by the instructors of this course.
 
 #include "CalculationsForAges.h"
 
@@ -61,23 +66,27 @@ void AgesCalculations(){
     int min = agesList[0];
     double averageAge = 0;
 
-    for (int i = 0; i <agesList.size(); ++i ) {
-        if (agesList[i] > max) {
-            max = agesList[i];
+
+    for (int i: agesList){
+        if (i > max) {
+            max = i;
         }
     }
-    for (int i = 0; i <agesList.size(); ++i ) {
-        if (agesList[i] < min) {
-            min = agesList[i];
+
+    for (int i: agesList) {
+        if (i < min) {
+            min = i;
         }
     }
-    for (int i = 0; i <agesList.size(); ++i ) {
-        averageAge += agesList[i];
+    for (int i: agesList) {
+        averageAge += i;
     }
 
     averageAge = averageAge/static_cast<double>(agesList.size());
 
     cout << "Minimum Age: " << min << endl;
     cout << "Maximum Age: " << max << endl;
-    cout << setprecision(3) << averageAge << endl;
+    cout << setprecision(3) << "Average Age: " << averageAge << endl;
+
+    RestartAges();
 }

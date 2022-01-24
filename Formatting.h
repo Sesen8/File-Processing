@@ -16,6 +16,10 @@ string CSVHeader();
 string FormatAsCSV(const string& json);
 string StringBetween(const string& json, const string& startWord, const string& endWord);
 string GetAge(const string& json);
+string GetFName(const string& json);
+string GetLName(const string& json);
+string GetHeight(const string& json);
+string GetNationality(const string& json);
 
 
 #endif //FORMATTING_H

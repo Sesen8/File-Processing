@@ -1,7 +1,7 @@
 // Title: Lab 1 - FileProcessing.cpp
 //
-// Purpose: This program is used to open and close a json file to format it into CSV,
-//          as well as computing the maximum, minimum and average ages found in the json file.
+// Purpose: This program is used to open and close a json file to format it into CSV.
+//          As well as outputting the information found in the file regarding the ages.
 //
 // Class: CSC 2430 Winter 2022
 // Author: Sesen Yonas
@@ -13,8 +13,6 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <sstream>
-
 
 
 using namespace std;
@@ -25,6 +23,7 @@ using std::cin;
 using std::ifstream;
 using std::fstream;
 using std::vector;
+using std::getline;
 
 
 
@@ -50,11 +49,11 @@ void FormattingTheFiles(ifstream& jsonIn, ofstream& csvOut, string& json) {
         if (json.empty()) {
             break;
         }
-        else {
-        csvOut << FormatAsCSV(json) << endl;
-        }
 
-    } while (!json.empty());
+        csvOut << FormatAsCSV(json) << endl;
+
+
+    } while (true);
 
 }
 

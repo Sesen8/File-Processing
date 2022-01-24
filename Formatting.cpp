@@ -3,7 +3,7 @@
 // Purpose: This file contains the program for three functions responsible for converting json line to cvs
 //
 // Class: CSC 2430 Winter 2022
-// Author: **<your name goes here>
+// Author: Sesen Yonas
 
 #include <cassert>
 #include <iostream>
@@ -45,9 +45,9 @@ string FormatAsCSV(const string& json) {
 
     string comma= ",";
 
-    nowCSV = StringBetween(json, "\"FirstName\":\"", "\"") + comma + StringBetween(json, "\"LastName\":\"", "\"") + comma + GetAge(json) + comma + StringBetween(json, "\"Height\":", "\"") + comma +  StringBetween(json, "\"Nationality\":\"", "\"");
+    //nowCSV = StringBetween(json, "\"FirstName\":\"", "\"") + comma + StringBetween(json, "\"LastName\":\"", "\"") + comma + GetAge(json) + comma + StringBetween(json, "\"Height\":", "\"") + comma +  StringBetween(json, "\"Nationality\":\"", "\"");
 
-
+    nowCSV = GetFName(json) + comma + GetLName(json) + comma + GetAge(json) + comma +  GetHeight(json) + comma + GetNationality(json);
     return nowCSV;
 }
 
@@ -61,12 +61,6 @@ string FormatAsCSV(const string& json) {
 //      age as string, or empty if age doesn't appear
 string GetAge(const string& json) {
     string ageCSV;
-
-    /*
-    if ((json.find("\"Age\":") != -1)) {
-        ageCSV.append(json.substr(json.find("Age\":") + 5, 2));
-    }
-     */
 
     size_t agePos;
     agePos = (json.find("Age\":"));
@@ -83,8 +77,93 @@ string GetAge(const string& json) {
         return ageCSV;
     }
     else{
+
         return "";
     }
+
+}
+
+
+
+
+string GetFName(const string &json) {
+    string fName;
+    size_t pos;
+
+    pos = (json.find("FirstName"));
+    if (pos != string::npos){
+        pos = pos+12;
+        while (json.at(pos) != '\"'){
+            fName += json.at(pos);
+            pos++;
+        }
+        return fName;
+    }
+    else {
+        return "";
+    }
+
+}
+
+string GetLName(const string& json){
+    string lName;
+    size_t pos;
+
+    pos = json.find("LastName");
+    if (pos != string::npos){
+        pos = pos + 11;
+        while (!ispunct(json.at(pos))){
+            lName += json.at(pos);
+            pos++;
+        }
+        return lName;
+    }
+    else {
+        return "";
+    }
+
+
+}
+
+string GetHeight(const string& json){
+    string height;
+    size_t pos;
+
+    pos = json.find("Height");
+    if(pos != string::npos){
+        pos = pos +8;
+        while (!ispunct(json.at(pos))){
+            height += json.at(pos);
+            pos++;
+        }
+        return height;
+    }
+    else {
+        return "";
+    }
+
+}
+
+
+string GetNationality(const string& json){
+    string nat;
+    size_t pos;
+
+    pos = json.find("Nationality");
+
+    if(pos!= string::npos){
+        pos = pos +14;
+        while (json.at(pos) != '\"'){
+            nat += json.at(pos);
+            pos++;
+        }
+        return nat;
+    }
+    else {
+        return "";
+
+    }
+
 
 }
 
