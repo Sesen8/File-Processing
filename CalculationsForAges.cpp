@@ -64,6 +64,7 @@ void RestartAges(){
 void AgesCalculations(){
     int max = agesList[0];
     int min = agesList[0];
+    double ageSum = 0;
     double averageAge = 0;
 
 
@@ -79,10 +80,11 @@ void AgesCalculations(){
         }
     }
     for (int i: agesList) {
-        averageAge += i;
+        ageSum += i;
+        //averageAge += i;
     }
 
-    averageAge = averageAge/static_cast<double>(agesList.size());
+    averageAge = ageSum/static_cast<double>(agesList.size());
 
     cout << "Minimum Age: " << min << endl;
     cout << "Maximum Age: " << max << endl;
