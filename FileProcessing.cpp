@@ -1,6 +1,7 @@
 // Title: Lab 1 - FileProcessing.cpp
 //
-// Purpose: **<state your purpose here>
+// Purpose: This program is used to open and close a json file to format it into CSV,
+//          as well as computing the maximum, minimum and average ages found in the json file.
 //
 // Class: CSC 2430 Winter 2022
 // Author: Sesen Yonas
@@ -29,52 +30,8 @@ using std::vector;
 
 #include "Formatting.h"
 #include "FileProcessing.h"
+#include "CalculationsForAges.h"
 
-vector <int> agesList;
-
-void AgeStringToInt(string& ageCSV) {
-    stringstream agesAsNums(ageCSV);
-    int x;
-    agesAsNums >> x;
-    agesList.push_back(x);
-
-}
-
-void RestartAges(){
-    agesList.clear();
-}
-
-
-
-void AgesCalculations(){
-    int max = agesList[0];
-    int min = agesList[0];
-    double averageAge = 0;
-
-    for (int i = 0; i <agesList.size(); ++i ) {
-        if (agesList[i] > max) {
-            max = agesList[i];
-        }
-    }
-
-    for (int i = 0; i <agesList.size(); ++i ) {
-        if (agesList[i] < min) {
-            min = agesList[i];
-        }
-    }
-
-    for (int i = 0; i <agesList.size(); ++i ) {
-        averageAge += agesList[i];
-    }
-
-        averageAge = averageAge/static_cast<double>(agesList.size());
-
-        cout << "Minimum Age: " << min << endl;
-        cout << "Maximum Age: " << max << endl;
-        cout << setprecision(3) << averageAge << endl;
-
-
-}
 
 // - Reads the JSON File and calls FormatAsCSV() for each of the lines found in the file.
 // - From there it outputs each of those lines to a CSV file
@@ -89,14 +46,15 @@ void FormattingTheFiles(ifstream& jsonIn, ofstream& csvOut, string& json) {
     csvOut << CSVHeader() << endl;
 
     do {
-        getline(jsonIn,json);
-        if (json.empty()){
+        getline(jsonIn, json);
+        if (json.empty()) {
             break;
         }
-
+        else {
         csvOut << FormatAsCSV(json) << endl;
+        }
 
-    } while (true);
+    } while (!json.empty());
 
 }
 
@@ -156,19 +114,11 @@ void ProcessFiles() {
         }
 
         FormattingTheFiles(jsonIn,csvOut,json);
-
-
-
         AgesCalculations();
         jsonIn.close();
         csvOut.close();
 
-
     } while (inFilename != " ");
-
-
-
-
 
 }
 

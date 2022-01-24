@@ -3,4 +3,4 @@ project(FileProcessing)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(FileProcessor main.cpp FileProcessing.cpp Formatting.cpp)
+add_executable(FileProcessor main.cpp FileProcessing.cpp Formatting.cpp CalculationsForAges.cpp CalculationsForAges.h)
