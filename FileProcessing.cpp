@@ -42,11 +42,12 @@ using std::ofstream;
 //      json   : line in json format
 // Returns:
 //      nothing
-void FormattingTheFiles(ifstream& jsonIn, ofstream& csvOut) {
+void FormattingTheFiles(ifstream& jsonIn, string csvInfo) {
 
     string json;
+    ofstream newCsv (csvInfo);
 
-    csvOut << CSVHeader() << endl;
+    newCsv << CSVHeader() << endl;
 
     do {
         getline(jsonIn, json);
@@ -54,19 +55,12 @@ void FormattingTheFiles(ifstream& jsonIn, ofstream& csvOut) {
             break;
         }
 
-
         string csvLine = FormatAsCSV(json);
-        if (csvOut.is_open()) {
 
-            csvOut << csvLine << endl;
-        }
-        else {
-            cout << "not" << endl;
-        }
-
-
+        newCsv << csvLine << endl;
 
     } while (true);
+    newCsv.close();
 
 }
 
@@ -113,7 +107,7 @@ void ProcessFiles() {
 
         cout << "Output File Name:";
         getline(cin, outFilename);
-        ofstream csvOut(outFilename);
+        //ofstream csvOut(outFilename);
 
         string csvFormat = ".csv";
         if (outFilename.find(csvFormat) == string::npos){
@@ -122,22 +116,21 @@ void ProcessFiles() {
             continue;
         }
 
-
+/*
         csvOut.open("../" + outFilename);
         if (!csvOut.is_open()){
             cout  << "ERROR: " << inFilename << " not found" << endl;
             jsonIn.close();
             continue;
         }
+        */
 
-        FormattingTheFiles(jsonIn,csvOut);
+        FormattingTheFiles(jsonIn,outFilename);
         AgesCalculations();
         jsonIn.close();
-        csvOut.close();
+        //csvOut.close();
 
-       // if (inFilename == ""){
-           // inFilename = "";
-        //}
+
 
     } while (!inFilename.empty());
 

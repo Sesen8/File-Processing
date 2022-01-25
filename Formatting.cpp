@@ -205,6 +205,7 @@ string GetNationality(const string& json){
 // that is stored in a JSON formatted line.
 // The return value is a string
 // If first name doesn't appear, returns empty string
+//  NOT USING ANYMORE
 //
 // Parameters:
 //      json - JSON formatted line

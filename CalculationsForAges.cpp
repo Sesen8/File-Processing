@@ -37,12 +37,6 @@ vector <int> agesList;
 // Returns:
 //      nothing
 void AgeStringToInt(string& ageCSV) {
-    /*
-    //stringstream agesAsNums(ageCSV);
-    int x;
-    //agesAsNums >> x;
-    //agesList.push_back(x);
-     */
 
     agesList.push_back(stoi(ageCSV));
 
