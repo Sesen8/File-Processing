@@ -14,6 +14,7 @@
 #include <fstream>
 #include <vector>
 #include <sstream>
+#include <iomanip>
 
 
 
@@ -36,10 +37,14 @@ vector <int> agesList;
 // Returns:
 //      nothing
 void AgeStringToInt(string& ageCSV) {
-    stringstream agesAsNums(ageCSV);
+    /*
+    //stringstream agesAsNums(ageCSV);
     int x;
-    agesAsNums >> x;
-    agesList.push_back(x);
+    //agesAsNums >> x;
+    //agesList.push_back(x);
+     */
+
+    agesList.push_back(stoi(ageCSV));
 
 }
 
@@ -64,7 +69,7 @@ void RestartAges(){
 void AgesCalculations(){
     int max = agesList[0];
     int min = agesList[0];
-    double ageSum = 0;
+    int ageSum = 0;
     double averageAge = 0;
 
 

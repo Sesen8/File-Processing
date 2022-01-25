@@ -2,6 +2,7 @@
 //
 // Purpose: This file contains the program for three functions responsible for converting json line to cvs
 //
+//
 // Class: CSC 2430 Winter 2022
 // Author: Sesen Yonas
 
@@ -48,6 +49,7 @@ string FormatAsCSV(const string& json) {
     //nowCSV = StringBetween(json, "\"FirstName\":\"", "\"") + comma + StringBetween(json, "\"LastName\":\"", "\"") + comma + GetAge(json) + comma + StringBetween(json, "\"Height\":", "\"") + comma +  StringBetween(json, "\"Nationality\":\"", "\"");
 
     nowCSV = GetFName(json) + comma + GetLName(json) + comma + GetAge(json) + comma +  GetHeight(json) + comma + GetNationality(json);
+
     return nowCSV;
 }
 
@@ -85,7 +87,14 @@ string GetAge(const string& json) {
 
 
 
-
+// Returns the first name stored in a JSON
+// formatted line.  The return value is a string
+// If first name doesn't appear, returns empty string
+//
+// Parameters:
+//      json - JSON formatted line
+// Returns:
+//      first name as string, or empty if first name doesn't appear
 string GetFName(const string &json) {
     string fName;
     size_t pos;
@@ -105,6 +114,14 @@ string GetFName(const string &json) {
 
 }
 
+// Returns the last name stored in a JSON
+// formatted line.  The return value is a string
+// If last name doesn't appear, returns empty string
+//
+// Parameters:
+//      json - JSON formatted line
+// Returns:
+//      last name as string, or empty if last name doesn't appear
 string GetLName(const string& json){
     string lName;
     size_t pos;
@@ -124,6 +141,15 @@ string GetLName(const string& json){
 
 
 }
+
+// Returns the height name stored in a JSON
+// formatted line.  The return value is a string
+// If height doesn't appear, returns empty string
+//
+// Parameters:
+//      json - JSON formatted line
+// Returns:
+//      height as string, or empty if height doesn't appear
 
 string GetHeight(const string& json){
     string height;
@@ -145,6 +171,14 @@ string GetHeight(const string& json){
 }
 
 
+// Returns the nationality stored in a JSON
+// formatted line.  The return value is a string
+// If nationality doesn't appear, returns empty string
+//
+// Parameters:
+//      json - JSON formatted line
+// Returns:
+//      nationality as string, or empty if nationality doesn't appear
 string GetNationality(const string& json){
     string nat;
     size_t pos;
@@ -167,6 +201,17 @@ string GetNationality(const string& json){
 
 }
 
+// Returns the string between given start and end word
+// that is stored in a JSON formatted line.
+// The return value is a string
+// If first name doesn't appear, returns empty string
+//
+// Parameters:
+//      json - JSON formatted line
+//      startWord - word before needed string
+//      endWord - word after needed string
+// Returns:
+//      string found between given start and end word
 string StringBetween(const string& json, const string& startWord, const string& endWord) {
     size_t startPosition = json.find(startWord);
 

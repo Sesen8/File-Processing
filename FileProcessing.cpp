@@ -24,6 +24,7 @@ using std::ifstream;
 using std::fstream;
 using std::vector;
 using std::getline;
+using std::ofstream;
 
 
 
@@ -41,7 +42,10 @@ using std::getline;
 //      json   : line in json format
 // Returns:
 //      nothing
-void FormattingTheFiles(ifstream& jsonIn, ofstream& csvOut, string& json) {
+void FormattingTheFiles(ifstream& jsonIn, ofstream& csvOut) {
+
+    string json;
+
     csvOut << CSVHeader() << endl;
 
     do {
@@ -50,7 +54,16 @@ void FormattingTheFiles(ifstream& jsonIn, ofstream& csvOut, string& json) {
             break;
         }
 
-        csvOut << FormatAsCSV(json) << endl;
+
+        string csvLine = FormatAsCSV(json);
+        if (csvOut.is_open()) {
+
+            csvOut << csvLine << endl;
+        }
+        else {
+            cout << "not" << endl;
+        }
+
 
 
     } while (true);
@@ -75,12 +88,16 @@ void ProcessFiles() {
     string json;
 
     do {
-        if (inFilename == " "){
+
+        cout << "Input File Name:";
+        getline(cin, inFilename);
+
+        if (inFilename.empty()){
+
             break;
         }
 
-        cout << "Input File Name: ";
-        cin >> inFilename;
+
         ifstream jsonIn(inFilename);
 
         string jsonFormat = ".json";
@@ -94,8 +111,8 @@ void ProcessFiles() {
             continue;
         }
 
-        cout << "Output File Name: ";
-        cin >> outFilename;
+        cout << "Output File Name:";
+        getline(cin, outFilename);
         ofstream csvOut(outFilename);
 
         string csvFormat = ".csv";
@@ -105,6 +122,7 @@ void ProcessFiles() {
             continue;
         }
 
+
         csvOut.open("../" + outFilename);
         if (!csvOut.is_open()){
             cout  << "ERROR: " << inFilename << " not found" << endl;
@@ -112,12 +130,17 @@ void ProcessFiles() {
             continue;
         }
 
-        FormattingTheFiles(jsonIn,csvOut,json);
+        FormattingTheFiles(jsonIn,csvOut);
         AgesCalculations();
         jsonIn.close();
         csvOut.close();
 
-    } while (inFilename != " ");
+       // if (inFilename == ""){
+           // inFilename = "";
+        //}
+
+    } while (!inFilename.empty());
+
 
 }
 
