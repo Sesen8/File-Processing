@@ -48,6 +48,7 @@ void FormattingTheFiles(ifstream& jsonIn, string csvInfo) {
     ofstream newCsv (csvInfo);
 
     newCsv << CSVHeader() << endl;
+    //cout << "This is a plea for help." << endl;
 
     do {
         getline(jsonIn, json);
@@ -58,6 +59,7 @@ void FormattingTheFiles(ifstream& jsonIn, string csvInfo) {
         string csvLine = FormatAsCSV(json);
 
         newCsv << csvLine << endl;
+        //cout << "H E L P:" << csvLine << endl;
 
     } while (true);
     newCsv.close();
